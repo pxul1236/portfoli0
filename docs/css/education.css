@@ -1,0 +1,170 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #000000;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    width: 100%; /* Ensure the width is 100% */
+    height: 100%;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0); /* This makes the navbar transparent */
+    padding: 0 20px; 
+    position: absolute; /* Keeps the navbar fixed at the top */
+    width: 100%; /* Ensures the navbar covers the full width */
+    z-index: 10; /* Ensures the navbar stays above other content */
+}
+
+
+#nav_home {
+    color: white;
+    font-size: 21px;
+    padding-left: 30px;
+    font-weight: 300;
+}
+
+#nav_home a {
+    text-decoration: none;
+    color: white;
+}
+
+nav .right {
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+    padding: 35px;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+nav ul li {
+    list-style: none;
+    margin: 0 40px;
+    font-size: 16px;
+    font-weight: 500;
+    position:relative;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+nav ul li a:hover {
+    color: rgb(211, 211, 216);
+    transform: scale(2.1);
+    transition: transform 0.3s ease;
+}
+
+nav ul li.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background-color: white;
+    border-radius: 2px;
+    margin: auto;
+}
+
+.bg-edu {
+    position: relative;
+    width: 100%;
+    height: 35vh; /* Adjust this for the desired height of the image section */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bg-edu img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    z-index: 0; /* Put the image behind the text */
+}
+
+.overlay {
+    position: relative;
+    z-index: 1; /* Ensures the text is on top of the image */
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+#edu_head{
+    font-weight: 200;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 4rem;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Aligns the course heading at the top of the main section */
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: white; 
+    flex-direction: column;
+}
+
+.course {
+    width: 100%; /* Stretches the div across the page */
+    height: 120px; /* Set the height for the bar */
+    background: linear-gradient(to bottom, #999999, rgba(0, 0, 0, 0)); /* Adds fade effect */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centers the text vertically */
+    color: white; /* Ensures text stands out */
+}
+
+
+#course_name {
+    font-weight: 200;
+    text-align: center; /* Centers the text horizontally */
+    font-size: 35px; /* Adjust font size as needed */
+}
+
+.course_content {
+    display: flex; /* Use flexbox for left and right alignment */
+    width: 100%; /* Make sure the container spans the full width */
+    height: 414px;
+}
+
+.c_dis_left {
+    width: 30%; /* Occupies 30% of the width */
+    background-color:transparent;
+    padding-top: 65px; /* Optional padding */
+    text-align: center; /* Center-aligns text */
+}
+
+.c_dis_left img {
+height: 25vh;
+}
+
+.c_dis_right {
+    width: 70%; /* Occupies 70% of the width */
+    background-color:transparent;
+    padding-top: 30px; /* Optional padding */
+
+}
+
+#uni_name{
+    font-weight: 300;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 20px;
+}

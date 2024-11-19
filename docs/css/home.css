@@ -1,0 +1,161 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #000000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    height: 60px;
+    background-color: #000000;
+    padding: 0 20px; 
+}
+
+#nav_home {
+    color: white;
+    font-size: 21px; 
+    padding-left: 30px; 
+    font-weight: 300;
+}
+#nav_home a {
+    text-decoration: none;
+    color: white;
+}
+
+nav .right {
+    display: flex;
+    justify-content: space-around; 
+    width: 50%; 
+    padding-left: 20px; 
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-between; 
+    width: 100%;
+}
+
+nav ul li {
+    list-style: none;
+    margin: 0 40px; 
+    font-size: 16px;
+    font-weight: 500;
+    position:relative;
+}
+
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+nav ul li a:hover {
+    color: rgb(211, 211, 216);
+    transform: scale(2.1); 
+    transition: transform 0.3s ease;
+}
+nav ul li.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px; /* Position the rectangle just below the text */
+    left: 0;
+    right: 0;
+    height: 4px; /* Thickness of the rectangle */
+    background-color: white; /* Color of the rectangle */
+    border-radius: 2px; /* Slightly rounded corners */
+    margin: auto;
+}
+
+
+main {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: white;
+    
+}
+
+    
+
+.container {
+    width: 80%;
+    max-width: 1200px;
+    text-align: center;
+    margin-top: 65px;
+}
+
+.header h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    font-weight: 200;
+}
+
+.header p {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 30px;
+}
+
+.section {
+    margin-bottom: 30px;
+}
+
+.section h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: rgb(211, 211, 216); /* Slightly lighter color for the headings */
+}
+
+.section p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    font-weight: 300;
+}
+/* Style for the overall logos container */
+.logos {
+    overflow: hidden;
+    padding: 10px;
+    background-color: rgba(107, 107, 109, 0);
+    border-radius: 5px;
+    margin: 70px auto 88px auto;
+    width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Sliding animation */
+.logo-slide {
+    display: flex;
+    animation: slide 18s linear infinite;
+}
+
+/* Animation keyframes */
+@keyframes slide {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* Individual images */
+.logo-slide img {
+    height: 80px;
+    margin: 0 20px;
+    object-fit: contain;
+}
+
+/* Smooth transition when hovering */
+.logos:hover .logo-slide {
+    animation-play-state: paused;
+}
