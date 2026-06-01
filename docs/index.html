@@ -1,96 +1,414 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paul CJ</title>
-    <link rel="icon" href="images\star.png">
-    <link rel="stylesheet" href="css\home.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paul CJ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   COLOUR + TYPE VARIABLES  —  change these to recolour the site
+   ============================================================ */
+:root{
+  --bg:        #0d0d0f;   /* page background        */
+  --bg-soft:   #16161a;   /* cards / panels         */
+  --text:      #e8e6e0;   /* main text              */
+  --text-dim:  #8a8a82;   /* muted text             */
+  --accent:    #00d68f;   /* primary accent (green) */
+  --accent-2:  #ffb347;   /* secondary accent (amber) */
+  --border:    #2a2a30;   /* hairlines / borders    */
+  --display:   'VT323', monospace;   /* big retro display font */
+  --body:      'Space Mono', monospace; /* readable mono body  */
+  --maxw: 920px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--body);
+  line-height:1.7;
+  font-size:15px;
+  overflow-x:hidden;
+  /* subtle scanline texture for retro feel */
+  background-image:repeating-linear-gradient(
+    0deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px,
+    transparent 1px, transparent 3px);
+}
+
+/* ---------- NAV ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 28px;
+  background:rgba(13,13,15,0.82);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+}
+.brand{
+  font-family:var(--display);font-size:28px;color:var(--accent);
+  letter-spacing:1px;text-decoration:none;
+}
+.brand .blink{animation:blink 1.2s steps(2,start) infinite}
+@keyframes blink{to{visibility:hidden}}
+.nav-links{display:flex;gap:22px;list-style:none}
+.nav-links a{
+  color:var(--text-dim);text-decoration:none;font-size:13px;
+  text-transform:uppercase;letter-spacing:1px;transition:color .2s;
+  position:relative;padding-bottom:3px;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+.nav-links a.active::after{
+  content:'';position:absolute;left:0;bottom:0;width:100%;height:2px;
+  background:var(--accent);
+}
+.menu-btn{display:none;background:none;border:none;color:var(--accent);
+  font-family:var(--display);font-size:30px;cursor:pointer}
+
+/* ---------- LAYOUT ---------- */
+section{
+  max-width:var(--maxw);margin:0 auto;padding:90px 28px 40px;
+}
+.section-label{
+  font-family:var(--display);font-size:15px;color:var(--accent-2);
+  text-transform:uppercase;letter-spacing:3px;margin-bottom:8px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-label::before{content:'>';color:var(--accent)}
+h1{font-family:var(--display);font-size:clamp(48px,10vw,92px);
+  line-height:.95;color:var(--text);letter-spacing:1px}
+h2{font-family:var(--display);font-size:clamp(34px,6vw,52px);
+  color:var(--text);margin-bottom:18px;letter-spacing:1px}
+
+/* ---------- HERO ---------- */
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding-top:72px}
+#hero .smiley{font-family:var(--display);color:var(--accent);font-size:26px;margin-bottom:6px}
+#hero p.lead{max-width:600px;color:var(--text-dim);margin-top:20px;font-size:16px}
+#hero .typed{color:var(--accent)}
+.cta-row{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+.btn{
+  font-family:var(--body);font-size:13px;text-transform:uppercase;letter-spacing:1px;
+  text-decoration:none;padding:12px 20px;border:1px solid var(--border);
+  color:var(--text);background:var(--bg-soft);transition:all .2s;
+}
+.btn:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.btn.primary{border-color:var(--accent);color:var(--accent)}
+.btn.primary:hover{background:var(--accent);color:var(--bg)}
+
+/* ---------- ABOUT ---------- */
+#about p{max-width:640px;color:var(--text);margin-bottom:14px}
+#about .dim{color:var(--text-dim)}
+
+/* ---------- SKILLS (marquee) ---------- */
+.marquee{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:18px 0;margin-top:10px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.marquee-track{display:flex;gap:40px;width:max-content;animation:scroll 22s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.skill-pill{font-family:var(--display);font-size:24px;color:var(--text);white-space:nowrap;
+  display:flex;align-items:center;gap:8px}
+.skill-pill::before{content:'▪';color:var(--accent);font-size:14px}
+.skill-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.skill-grid span{font-size:12px;padding:6px 12px;border:1px solid var(--border);
+  color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px}
+
+/* ---------- PROJECTS ---------- */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+.proj{
+  background:var(--bg-soft);border:1px solid var(--border);padding:22px;
+  transition:all .25s;position:relative;overflow:hidden;
+}
+.proj:hover{border-color:var(--accent);transform:translateY(-3px)}
+.proj::before{content:'';position:absolute;top:0;left:0;width:0;height:3px;
+  background:var(--accent);transition:width .3s}
+.proj:hover::before{width:100%}
+.proj h3{font-family:var(--display);font-size:26px;color:var(--text);margin-bottom:4px}
+.proj .status{font-size:11px;color:var(--accent-2);text-transform:uppercase;letter-spacing:1px}
+.proj .stack{color:var(--accent);font-size:12px;margin:8px 0 12px}
+.proj p{color:var(--text-dim);font-size:13.5px;margin-bottom:14px}
+.proj a.link{color:var(--text);font-size:12px;text-decoration:none;border-bottom:1px solid var(--accent);
+  text-transform:uppercase;letter-spacing:1px;transition:color .2s}
+.proj a.link:hover{color:var(--accent)}
+
+/* ---------- EXPERIENCE + EDUCATION (timeline) ---------- */
+.tl{border-left:2px solid var(--border);margin-top:24px;padding-left:24px}
+.tl-item{position:relative;padding-bottom:28px}
+.tl-item::before{content:'';position:absolute;left:-31px;top:4px;width:12px;height:12px;
+  background:var(--bg);border:2px solid var(--accent)}
+.tl-item .when{font-size:12px;color:var(--accent-2);text-transform:uppercase;letter-spacing:1px}
+.tl-item h3{font-family:var(--display);font-size:24px;color:var(--text);margin-top:2px}
+.tl-item .where{color:var(--accent);font-size:13px;margin-bottom:6px}
+.tl-item p{color:var(--text-dim);font-size:13.5px}
+
+/* ---------- CONTACT ---------- */
+#contact .links{display:flex;flex-direction:column;gap:12px;margin-top:24px}
+#contact .links a{color:var(--text);text-decoration:none;font-size:16px;
+  display:flex;align-items:center;gap:12px;transition:color .2s;width:fit-content}
+#contact .links a:hover{color:var(--accent)}
+#contact .links a span.tag{color:var(--accent-2);font-family:var(--display);font-size:18px;min-width:90px}
+
+footer{text-align:center;padding:40px 20px;color:var(--text-dim);font-size:12px;
+  border-top:1px solid var(--border);margin-top:40px}
+footer .heart{color:var(--accent)}
+
+/* ---------- SCROLL-TO-TOP PIXEL ARROW ---------- */
+#toTop{
+  position:fixed;bottom:26px;right:26px;width:46px;height:46px;z-index:90;
+  background:var(--bg-soft);border:2px solid var(--accent);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .3s,transform .15s;
+  image-rendering:pixelated;
+}
+#toTop.show{opacity:1;pointer-events:auto}
+#toTop:hover{transform:translateY(-4px)}
+#toTop:active{transform:translateY(0)}
+/* pixel arrow drawn with box-shadow blocks */
+#toTop .px{width:6px;height:6px;background:var(--accent);position:relative}
+#toTop .px::before{content:'';position:absolute;width:6px;height:6px;background:var(--accent);
+  box-shadow:
+    0 -12px 0 var(--accent),          /* tip */
+   -6px -6px 0 var(--accent), 6px -6px 0 var(--accent),
+   -12px 0 0 var(--accent), 12px 0 0 var(--accent),
+   -6px 0 0 var(--accent), 6px 0 0 var(--accent),
+   -6px 6px 0 var(--accent), 6px 6px 0 var(--accent),
+   -6px 12px 0 var(--accent), 6px 12px 0 var(--accent);
+}
+
+/* ---------- SCROLL REVEAL ---------- */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:680px){
+  .nav-links{
+    position:fixed;top:58px;right:0;background:var(--bg-soft);
+    flex-direction:column;width:200px;padding:20px;gap:18px;
+    border-left:1px solid var(--border);border-bottom:1px solid var(--border);
+    transform:translateX(110%);transition:transform .28s}
+  .nav-links.open{transform:translateX(0)}
+  .menu-btn{display:block}
+  .proj-grid{grid-template-columns:1fr}
+  section{padding:70px 20px 30px}
+  #contact .links a span.tag{min-width:70px;font-size:15px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;scroll-behavior:auto!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
 </head>
 <body>
-    <header>
-        <nav>
-        <div class="left" id="nav_home"><a href="index.html">Paul CJ</a></div>
-        <div class="right">
-            <ul>
-                <li class="active"><a href="index.html">Home</a></li>
-                <li><a href="education.html">Education</a></li>
-                <li>
-                    <a href="https://github.com/pxul1236" target="_blank">Github</a>
-                </li>
-                <li><a href="resume.html">Resume</a></li>
-                <li><a href="contacts.html">Contacts</a></li>
-            </ul>
-        </div>
-    </nav>
-    </header>
-        <main>
-            <div class="container">
-                <div class="header">
-                    <h1>Paul CJ</h1>
-                    <p>:)</p>
-                </div>
-                <div class="section about-me">
-                    <h2>About Me</h2>
-                    <p>
-                        Hey, I’m Paul, a CS student and ML enthusiast from Kerala. Every day, I make it a point to learn something new, whether it’s about tech or tackling real-life challenges! <br>
-                        Curious about what I've been working on? Check out my projects on GitHub <br>
-                        Currently transitioning to DE....
-                    </p>
-                </div>
-                
-                <div class="section">
-                    <h2>Skills</h2>
-                    <p>Python, Flask, Machine Learning, NLP, OpenCV, SQL, Web Scraping.</p>
-                </div>
-                
-                <div class="logos">
-                  <div class="logo-slide">
-                    <img src="images/html.png" alt="HTML icon" />
-                    <img src="images/css.png" alt="CSS icon" />
-                    <img src="images/soup.png" alt="soup icon" />
-                    <img src="images/python.png" alt="Python icon" />
-                    <img src="images/sql.svg" alt="sql icon" />
-                    <img src="images/pandas.png" alt="Pandas icon" />
-                    <img src="images/numpy.svg" alt="NumPy icon" />
-                    <img src="images/git.png" alt="Git icon" />
-                    <img src="images/sea1.png" alt="Seaborn icon" />
-                    <img src="images/Matplotlib.png" alt="Matplotlib icon" />
-                    <img src="images/tensorflow.svg" alt="TensorFlow icon" />
-                  </div>
-                  <div class="logo-slide">
-                    <img src="images/html.png" alt="HTML icon" />
-                    <img src="images/css.png" alt="CSS icon" />
-                    <img src="images/soup.png" alt="soup icon" />
-                    <img src="images/python.png" alt="Python icon" />
-                    <img src="images/sql.svg" alt="sql icon" />
-                    <img src="images/pandas.png" alt="Pandas icon" />
-                    <img src="images/numpy.svg" alt="NumPy icon" />
-                    <img src="images/git.png" alt="Git icon" />
-                    <img src="images/sea1.png" alt="Seaborn icon" />
-                    <img src="images/Matplotlib.png" alt="Matplotlib icon" />
-                    <img src="images/tensorflow.svg" alt="TensorFlow icon" />
-                  </div>
-                  <div class="logo-slide">
-                    <img src="images/html.png" alt="HTML icon" />
-                    <img src="images/css.png" alt="CSS icon" />
-                    <img src="images/soup.png" alt="soup icon" />
-                    <img src="images/python.png" alt="Python icon" />
-                    <img src="images/sql.svg" alt="sql icon" />
-                    <img src="images/pandas.png" alt="Pandas icon" />
-                    <img src="images/numpy.svg" alt="NumPy icon" />
-                    <img src="images/git.png" alt="Git icon" />
-                    <img src="images/sea1.png" alt="Seaborn icon" />
-                    <img src="images/Matplotlib.png" alt="Matplotlib icon" />
-                    <img src="images/tensorflow.svg" alt="TensorFlow icon" />
-                  </div>
-                </div>
-                  
 
-                
-                
-            </div>
-        </main>
-    
+<nav>
+  <a href="#hero" class="brand">paul_cj<span class="blink">_</span></a>
+  <button class="menu-btn" aria-label="menu">≡</button>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="smiley">:)</div>
+  <h1>PAUL CJ</h1>
+  <p class="lead">Computer Science student building <span class="typed">machine learning</span> projects — and shipping them, not leaving them in a notebook.</p>
+  <div class="cta-row">
+    <a href="#projects" class="btn primary">View Projects</a>
+    <a href="https://github.com/pxul1236" class="btn" target="_blank" rel="noopener">GitHub</a>
+    <a href="#contact" class="btn">Get in touch</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="reveal">
+  <div class="section-label">about</div>
+  <h2>About Me</h2>
+  <p>Hey, I'm Paul — a second-year Computer Science student at Griffith University, focused on machine learning.</p>
+  <p>I learn by building. I've trained models on real datasets and deployed them as working apps, built an LLM chatbot at a hackathon, and I'm currently building a note-sharing web app with FastAPI.</p>
+  <p class="dim">Every project goes to GitHub as I work on it. Looking for a 2026 ML internship.</p>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="reveal">
+  <div class="section-label">skills</div>
+  <h2>Stack</h2>
+  <div class="marquee">
+    <div class="marquee-track">
+      <span class="skill-pill">Python</span><span class="skill-pill">Machine Learning</span>
+      <span class="skill-pill">Scikit-learn</span><span class="skill-pill">Pandas</span>
+      <span class="skill-pill">NumPy</span><span class="skill-pill">Flask</span>
+      <span class="skill-pill">FastAPI</span><span class="skill-pill">SQL</span>
+      <span class="skill-pill">PostgreSQL</span><span class="skill-pill">Docker</span>
+      <span class="skill-pill">Git</span><span class="skill-pill">Gemini API</span>
+      <!-- duplicate for seamless loop -->
+      <span class="skill-pill">Python</span><span class="skill-pill">Machine Learning</span>
+      <span class="skill-pill">Scikit-learn</span><span class="skill-pill">Pandas</span>
+      <span class="skill-pill">NumPy</span><span class="skill-pill">Flask</span>
+      <span class="skill-pill">FastAPI</span><span class="skill-pill">SQL</span>
+      <span class="skill-pill">PostgreSQL</span><span class="skill-pill">Docker</span>
+      <span class="skill-pill">Git</span><span class="skill-pill">Gemini API</span>
+    </div>
+  </div>
+  <div class="skill-grid">
+    <span>Supabase</span><span>REST APIs</span><span>Seaborn</span><span>Matplotlib</span>
+    <span>Jupyter</span><span>JavaScript</span><span>HTML/CSS</span><span>C</span>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="reveal">
+  <div class="section-label">projects</div>
+  <h2>Projects</h2>
+  <div class="proj-grid">
+
+    <div class="proj">
+      <span class="status">in progress</span>
+      <h3>StudySnipps</h3>
+      <div class="stack">Python · FastAPI · SQLModel · Supabase</div>
+      <p>A web app where students upload, browse, and search lecture notes by course. Building the FastAPI backend with Supabase auth, deployed on Railway. Solo, built in public.</p>
+      <a class="link" href="https://github.com/pxul1236" target="_blank" rel="noopener">GitHub →</a>
+    </div>
+
+    <div class="proj">
+      <span class="status">team · hackathon</span>
+      <h3>Crypto Chatbot</h3>
+      <div class="stack">Python · Gemini API</div>
+      <p>An AI chatbot built at the Tanda Hackathon that answers user questions about Bitcoin tools and trading in real time, with no stored user data.</p>
+      <a class="link" href="https://santaclaude2026tandahackathon.netlify.app" target="_blank" rel="noopener">Live demo →</a>
+    </div>
+
+    <div class="proj">
+      <span class="status">deployed</span>
+      <h3>Diabetes Predictor</h3>
+      <div class="stack">Python · Scikit-learn · Flask</div>
+      <p>My first end-to-end ML project. Logistic regression and random forest classifiers trained on a diabetes dataset, served through a clean Flask web app.</p>
+      <a class="link" href="https://github.com/pxul1236" target="_blank" rel="noopener">GitHub →</a>
+    </div>
+
+    <div class="proj">
+      <span class="status">data engineering</span>
+      <h3>Retail Sales Pipeline</h3>
+      <div class="stack">Python · PostgreSQL · Airflow · Docker</div>
+      <p>An automated ETL pipeline that extracts, cleans, and loads retail sales records into PostgreSQL, scheduled with Airflow and containerised with Docker.</p>
+      <a class="link" href="https://github.com/pxul1236" target="_blank" rel="noopener">GitHub →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="reveal">
+  <div class="section-label">experience</div>
+  <h2>Experience</h2>
+  <div class="tl">
+    <div class="tl-item">
+      <div class="when">Jan 2026 — Present</div>
+      <h3>Client Service Assistant</h3>
+      <div class="where">Ozcare · Gold Coast</div>
+      <p>Customer-facing role in aged care: kitchen and dining support, working with residents and staff, following strict safety and hygiene procedures.</p>
+    </div>
+    <div class="tl-item">
+      <div class="when">Jul 2025 — Jan 2026</div>
+      <h3>Assistant Manager</h3>
+      <div class="where">Baskin-Robbins · Morayfield</div>
+      <p>Supervised daily operations, trained team members, handled customer service and cash through busy shifts.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="reveal">
+  <div class="section-label">education</div>
+  <h2>Education</h2>
+  <div class="tl">
+    <div class="tl-item">
+      <div class="when">Mar 2025 — Expected Nov 2027</div>
+      <h3>Bachelor of Computer Science</h3>
+      <div class="where">Griffith University · Major in AI/Data Science</div>
+      <p>Coursework: Data Structures &amp; Algorithms, Databases, OOP, Discrete Math &amp; Linear Algebra, Big Data Analytics, Computer Networks, Creative Coding.</p>
+    </div>
+    <div class="tl-item">
+      <div class="when">Nov 2023 — May 2024</div>
+      <h3>Machine Learning (Foundations)</h3>
+      <div class="where">Edure · India</div>
+      <p>Foundational machine learning coursework completed before starting university.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="reveal">
+  <div class="section-label">contact</div>
+  <h2>Get In Touch</h2>
+  <p style="color:var(--text-dim);max-width:520px">Open to ML internships, research, and tech-adjacent work. Drop me a line.</p>
+  <div class="links">
+    <a href="mailto:paulcj.au@gmail.com"><span class="tag">email</span> paulcj.au@gmail.com</a>
+    <a href="https://www.linkedin.com/in/paul-cj/" target="_blank" rel="noopener"><span class="tag">linkedin</span> /in/paul-cj</a>
+    <a href="https://github.com/pxul1236" target="_blank" rel="noopener"><span class="tag">github</span> /pxul1236</a>
+  </div>
+</section>
+
+<footer>
+  built by Paul CJ <span class="heart">█</span> 2026 &nbsp;·&nbsp; designed &amp; coded from scratch
+</footer>
+
+<button id="toTop" aria-label="Back to top"><span class="px"></span></button>
+
+<script>
+// ---- mobile menu ----
+const menuBtn=document.querySelector('.menu-btn');
+const navLinks=document.querySelector('.nav-links');
+menuBtn.addEventListener('click',()=>navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+
+// ---- active nav highlight on scroll ----
+const sections=[...document.querySelectorAll('section')];
+const links=[...document.querySelectorAll('.nav-links a')];
+const byId=id=>links.find(l=>l.getAttribute('href')==='#'+id);
+const navObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      links.forEach(l=>l.classList.remove('active'));
+      const l=byId(e.target.id); if(l)l.classList.add('active');
+    }
+  });
+},{rootMargin:'-45% 0px -50% 0px'});
+sections.forEach(s=>navObs.observe(s));
+
+// ---- scroll reveal ----
+const revObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');revObs.unobserve(e.target);}});
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+
+// ---- scroll-to-top button ----
+const toTop=document.getElementById('toTop');
+window.addEventListener('scroll',()=>{
+  toTop.classList.toggle('show',window.scrollY>400);
+});
+toTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+// ---- subtle typewriter on hero accent word ----
+const typed=document.querySelector('.typed');
+if(typed){
+  const words=['machine learning','ML models','real projects','things that ship'];
+  let wi=0;
+  setInterval(()=>{
+    typed.style.opacity=0;
+    setTimeout(()=>{wi=(wi+1)%words.length;typed.textContent=words[wi];typed.style.opacity=1;},250);
+  },2600);
+  typed.style.transition='opacity .25s';
+}
+</script>
 </body>
 </html>
